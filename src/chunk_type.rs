@@ -11,37 +11,38 @@ pub struct ChunkType {
     data: [u8; 4],
 }
 
-///! 块类型中，每个字节的第五位为0，这个字节就是大写，否则小写
+///! 块类型中，每个字节的5位为0，这个字节就是大写，否则小写
 impl ChunkType {
     pub fn bytes(&self) -> [u8; 4] {
         return self.data.try_into().unwrap();
     }
 
     /// Returns the property state of the first byte as described in the PNG spec
-    /// 块类型，第一个字节的第五位，0-关键数据块，1-辅助数据块
+    /// 块类型，第一个字节的5位，0-关键数据块，1-辅助数据块
     pub fn is_critical(&self) -> bool {
         let a = self.data[0] & 32;
         (a >> 5) == 0
     }
 
     /// Returns the property state of the second byte as described in the PNG spec
-    /// 块类型，第二个字节的第五位，0-公开，1-私有
+    /// 块类型，第二个字节的5位，0-公开，1-私有
     pub fn is_public(&self) -> bool {
         let a = self.data[1] & 32;
         (a >> 5) == 0
     }
     /// Returns the property state of the third byte as described in the PNG spec
-    /// 块类型，第三个字节的第五位，必须为0
+    /// 块类型，第三个字节的5位，必须为0
     pub fn is_reserved_bit_valid(&self) -> bool {
         let a = self.data[2] & 32;
         let d = a >> 5;
         (d) == 0
     }
     /// Returns the property state of the fourth byte as described in the PNG spec
-    /// 块类型，第四个字节的第五位，0-复制不安全，1-复制安全
+    /// 块类型，第四个字节的5位，0-复制不安全，1-复制安全
     pub fn is_safe_to_copy(&self) -> bool {
         let a = self.data[3] & 32;
         (a >> 5) == 1
+
     }
     /// Returns true if the reserved byte is valid and all four bytes are represented by the characters A-Z or a-z.
     /// Note that this chunk type should always be valid as it is validated during construction.

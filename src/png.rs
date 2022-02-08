@@ -1,11 +1,12 @@
-use std::path::Path;
+use crate::chunk::Chunk;
+use crate::chunk_type::ChunkType;
+use crate::{Error, Result};
 use std::convert::TryFrom;
 use std::fmt;
-use crate::chunk::Chunk;
-use crate::{Error, Result};
-use crate::chunk_type::ChunkType;
-use std::io::{BufReader, Read, BufRead};
+use std::fs;
+use std::io::{BufRead, BufReader, Read};
 use std::option::Option::Some;
+use std::path::Path;
 
 #[derive(Debug)]
 pub struct Png {
@@ -27,7 +28,8 @@ impl Png {
 
     /// Creates a `Png` from a file path
     pub fn from_file<P: AsRef<Path>>(path: P) -> Result<Self> {
-        todo!()
+        let data = fs::read(path).unwrap();
+        Ok(Png::try_from(data.as_ref()).unwrap())
     }
 
     /// Appends a chunk to the end of this `Png` file's `Chunk` list.
@@ -39,7 +41,11 @@ impl Png {
     /// Searches for a `Chunk` with the specified `chunk_type` and removes the first
     /// matching `Chunk` from this `Png` list of chunks.
     pub fn remove_chunk(&mut self, chunk_type: &str) -> Result<Chunk> {
-        let index = self.chunks.iter().position(|x| x.chunk_type().bytes() == chunk_type.as_bytes()).unwrap();
+        let index = self
+            .chunks
+            .iter()
+            .position(|x| x.chunk_type().bytes() == chunk_type.as_bytes())
+            .unwrap();
         let res = self.chunks.remove(index);
         Ok(res)
     }
@@ -57,18 +63,20 @@ impl Png {
     /// Searches for a `Chunk` with the specified `chunk_type` and returns the first
     /// matching `Chunk` from this `Png`.
     pub fn chunk_by_type(&self, chunk_type: &str) -> Option<&Chunk> {
-        self.chunks.iter().find(|&e| e.chunk_type().bytes() == chunk_type.as_bytes())
+        self.chunks
+            .iter()
+            .find(|&e| e.chunk_type().bytes() == chunk_type.as_bytes())
     }
 
     /// Returns this `Png` as a byte sequence.
     /// These bytes will contain the header followed by the bytes of all of the chunks.
     pub fn as_bytes(&self) -> Vec<u8> {
-        let chunk_bytes: Vec<u8> = self.chunks
+        let chunk_bytes: Vec<u8> = self
+            .chunks
             .iter()
             .flat_map(|chunk| chunk.as_bytes())
             .collect();
-        let res = self.header.iter()
-            .cloned().chain(chunk_bytes).collect();
+        let res = self.header.iter().cloned().chain(chunk_bytes).collect();
         res
     }
 }
@@ -77,7 +85,9 @@ impl TryFrom<&[u8]> for Png {
     type Error = Error;
 
     fn try_from(bytes: &[u8]) -> Result<Png> {
-        let mut reader = BufReader::new(bytes);
+
+        let mut reader = BufReader::with_capacity(bytes.len(),bytes);
+        // let mut reader = BufReader::new(bytes);
         let mut buffer: [u8; 8] = [0, 0, 0, 0, 0, 0, 0, 0];
         reader.read_exact(&mut buffer)?;
         if buffer != Png::STANDARD_HEADER {
@@ -114,8 +124,8 @@ impl TryFrom<&[u8]> for Png {
 
 impl fmt::Display for Png {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        writeln!(f, "Png {{", )?;
-        writeln!(f, "  Header: [", )?;
+        writeln!(f, "Png {{",)?;
+        writeln!(f, "  Header: [",)?;
         for e in 0..self.header.len() {
             if e == self.header.len() - 1 {
                 writeln!(f, "       {}", e)?;
@@ -123,30 +133,30 @@ impl fmt::Display for Png {
             }
             writeln!(f, "       {},", e)?;
         }
-        writeln!(f, "  ]", )?;
+        writeln!(f, "  ]",)?;
 
-        writeln!(f, "  Chunks: [", )?;
+        writeln!(f, "  Chunks: [",)?;
         for e in 0..self.chunks.len() {
             let chunk = self.chunks.get(e).unwrap();
             if e == self.chunks.len() - 1 {
-                writeln!(f, "       Chunk {{", )?;
+                writeln!(f, "       Chunk {{",)?;
                 writeln!(f, "           Length: {}", chunk.length())?;
                 writeln!(f, "           Type: {}", chunk.chunk_type())?;
                 writeln!(f, "           Data: {} bytes", chunk.data().len())?;
                 writeln!(f, "           Crc: {}", chunk.crc())?;
-                writeln!(f, "       }}", )?;
+                writeln!(f, "       }}",)?;
                 continue;
             }
 
-            writeln!(f, "       Chunk {{", )?;
+            writeln!(f, "       Chunk {{",)?;
             writeln!(f, "           Length: {}", chunk.length())?;
             writeln!(f, "           Type: {}", chunk.chunk_type())?;
             writeln!(f, "           Data: {} bytes", chunk.data().len())?;
             writeln!(f, "           Crc: {}", chunk.crc())?;
-            writeln!(f, "       }},", )?;
+            writeln!(f, "       }},",)?;
         }
-        writeln!(f, "  ]", )?;
-        writeln!(f, "}}", )?;
+        writeln!(f, "  ]",)?;
+        writeln!(f, "}}",)?;
         Ok(())
     }
 }
@@ -154,10 +164,10 @@ impl fmt::Display for Png {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::chunk_type::ChunkType;
     use crate::chunk::Chunk;
-    use std::str::FromStr;
+    use crate::chunk_type::ChunkType;
     use std::convert::TryFrom;
+    use std::str::FromStr;
 
     fn testing_chunks() -> Vec<Chunk> {
         let mut chunks = Vec::new();
@@ -252,7 +262,6 @@ mod tests {
 
         assert!(png.is_err());
     }
-
 
     #[test]
     fn test_list_chunks() {

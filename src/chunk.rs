@@ -6,13 +6,24 @@ use crate::chunk_type::ChunkType;
 use crc::crc32;
 
 #[derive(Debug, Clone)]
-struct Chunk {
+pub struct Chunk {
     length: u32,     // 数据字段长度，不包括类型代码、CRC
     chunk_type: ChunkType, // 4字节的块类型代码
     data: Vec<u8>,       // 数据
     crc: [u8; 4],        // 计算块类型、块数据字段
 }
 impl Chunk {
+    pub fn new(chunk_type: ChunkType,data: Vec<u8>) -> Self{
+        let res:Vec<u8> = chunk_type.bytes().iter().cloned().chain(data.iter().cloned()).collect();
+        let crc = crc32::checksum_ieee(&res);
+        let len = data.len();
+        Chunk{
+            chunk_type,
+            data,
+            length: len as u32,
+            crc: crc.to_be_bytes(),
+        }
+    }
     /// The length of the data portion of this chunk.
     pub fn length(&self) -> u32 {
         self.length
@@ -54,8 +65,9 @@ impl Chunk {
         self.length().to_be_bytes().iter()
             .chain(self.chunk_type.bytes().iter())
             .chain(self.data.iter())
-            .chain(self.crc.iter()).collect()
+            .chain(self.crc.iter()).copied().collect()
     }
+
 }
 
 impl TryFrom<&[u8]> for Chunk {

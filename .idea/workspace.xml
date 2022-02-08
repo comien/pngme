@@ -10,7 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76d60559-f8fb-4303-9c67-830edb0612a6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chunk.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/chunk.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/png.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/png.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,14 +44,9 @@
     <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
-  <component name="RunManager" selected="Cargo.Test chunk::tests">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Test chunk::tests" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
-      <option name="command" value="test --package pngme --bin pngme chunk::tests" />
+  <component name="RunManager" selected="Cargo.Test png::tests">
+    <configuration name="Test png::tests" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="command" value="test --package pngme --bin pngme png::tests" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
       <option name="channel" value="DEFAULT" />
       <option name="allFeatures" value="false" />
@@ -61,8 +59,8 @@
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test chunk::tests::test_chunk_crc" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
-      <option name="command" value="test --package pngme --bin pngme chunk::tests::test_chunk_crc -- --exact" />
+    <configuration name="Test png::tests::test_as_bytes" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="command" value="test --package pngme --bin pngme png::tests::test_as_bytes -- --exact" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
       <option name="channel" value="DEFAULT" />
       <option name="allFeatures" value="false" />
@@ -75,8 +73,8 @@
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test chunk::tests::test_chunk_length" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
-      <option name="command" value="test --package pngme --bin pngme chunk::tests::test_chunk_length -- --exact" />
+    <configuration name="Test png::tests::test_png_from_image_file" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="command" value="test --package pngme --bin pngme png::tests::test_png_from_image_file -- --exact" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
       <option name="channel" value="DEFAULT" />
       <option name="allFeatures" value="false" />
@@ -89,8 +87,8 @@
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test chunk::tests::test_chunk_string" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
-      <option name="command" value="test --package pngme --bin pngme chunk::tests::test_chunk_string -- --exact" />
+    <configuration name="Test png::tests::test_png_trait_impls" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="command" value="test --package pngme --bin pngme png::tests::test_png_trait_impls -- --exact" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
       <option name="channel" value="DEFAULT" />
       <option name="allFeatures" value="false" />
@@ -103,8 +101,8 @@
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test chunk::tests::test_chunk_type" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
-      <option name="command" value="test --package pngme --bin pngme chunk::tests::test_chunk_type -- --exact" />
+    <configuration name="Test png::tests::test_remove_chunk" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="command" value="test --package pngme --bin pngme png::tests::test_remove_chunk -- --exact" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
       <option name="channel" value="DEFAULT" />
       <option name="allFeatures" value="false" />
@@ -115,15 +113,20 @@
       <option name="redirectInputPath" value="" />
       <method v="2">
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Cargo.Test chunk::tests" />
-        <item itemvalue="Cargo.Test chunk::tests::test_chunk_crc" />
-        <item itemvalue="Cargo.Test chunk::tests::test_chunk_string" />
-        <item itemvalue="Cargo.Test chunk::tests::test_chunk_type" />
-        <item itemvalue="Cargo.Test chunk::tests::test_chunk_length" />
+        <item itemvalue="Cargo.Test png::tests" />
+        <item itemvalue="Cargo.Test png::tests::test_png_trait_impls" />
+        <item itemvalue="Cargo.Test png::tests::test_as_bytes" />
+        <item itemvalue="Cargo.Test png::tests::test_png_from_image_file" />
+        <item itemvalue="Cargo.Test png::tests::test_remove_chunk" />
       </list>
     </recent_temporary>
   </component>
@@ -140,7 +143,8 @@
       <option name="presentableId" value="Default" />
       <updated>1644201008366</updated>
       <workItem from="1644201010389" duration="2958000" />
-      <workItem from="1644217313122" duration="4538000" />
+      <workItem from="1644217313122" duration="11692000" />
+      <workItem from="1644284549783" duration="4032000" />
     </task>
     <servers />
   </component>
@@ -158,5 +162,16 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$USER_HOME$/.rustup/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/library/std/src/io/buffered/bufreader.rs</url>
+          <line>328</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

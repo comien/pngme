@@ -12,7 +12,10 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76d60559-f8fb-4303-9c67-830edb0612a6" name="Default Changelist" comment="" />
+    <list default="true" id="76d60559-f8fb-4303-9c67-830edb0612a6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WechatIMG122.png" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -113,11 +116,6 @@
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Cargo.Run pngme" />
       <item itemvalue="Cargo.Test png::tests" />
@@ -150,6 +148,9 @@
       <workItem from="1644201010389" duration="2958000" />
       <workItem from="1644217313122" duration="11692000" />
       <workItem from="1644284549783" duration="12095000" />
+      <workItem from="1644895787852" duration="11000" />
+      <workItem from="1648101876898" duration="3440000" />
+      <workItem from="1648886369550" duration="13000" />
     </task>
     <servers />
   </component>
